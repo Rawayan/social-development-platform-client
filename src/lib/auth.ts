@@ -1,6 +1,7 @@
 
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
+import { jwt } from "better-auth/plugins";
 
 import { mongoClient, mongoDb } from "@/lib/mongodb";
 
@@ -55,6 +56,27 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24 * 7,
     updateAge: 60 * 60 * 24,
   },
+
+  plugins: [
+    jwt({
+      jwt: {
+        issuer: baseURL,
+        audience: baseURL,
+        expirationTime: "15m",
+
+        definePayload: ({ user }) => ({
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        }),
+      },
+
+      jwks: {
+        rotationInterval: 60 * 60 * 24 * 30,
+        gracePeriod: 60 * 60 * 24 * 30,
+      },
+    }),
+  ],
 
   advanced: {
     database: {
