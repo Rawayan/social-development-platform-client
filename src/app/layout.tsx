@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { Toaster } from "sonner";
 
-import Navbar from "@/components/layout/navbar";
+import AuthNavbar from "@/components/layout/auth-navbar";
 import Footer from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
@@ -48,7 +48,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <Navbar />
+          <AuthNavbar />
 
           <main className="min-h-screen">{children}</main>
 
