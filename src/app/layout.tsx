@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 import "./globals.css";
 
@@ -23,27 +24,37 @@ export const metadata: Metadata = {
     template: "%s | Together",
   },
   description:
-    "Discover community events, join social initiatives, and make a positive impact together.",
+    "Together is a community development platform where people connect, organize social events, and make a positive impact.",
+  keywords: [
+    "Together",
+    "Community Development",
+    "Social Events",
+    "Volunteering",
+    "Community Service",
+    "Social Development",
+  ],
 };
 
 export default function RootLayout({
   children,
-}: LayoutProps<"/">) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="flex min-h-full flex-col">
-        <Navbar />
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider>
+          <Navbar />
 
-        <div className="flex-1">
-          {children}
-        </div>
+          <main className="min-h-screen">{children}</main>
 
-        <Footer />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
 }
+
 

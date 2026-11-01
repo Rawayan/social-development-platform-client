@@ -57,7 +57,10 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Light theme */
+/* ========================================
+   LIGHT THEME
+======================================== */
+
 :root {
   color-scheme: light;
 
@@ -114,7 +117,10 @@
   --brand-text: #202a27;
 }
 
-/* Dark theme tokens - toggle will be implemented in Step 05 */
+/* ========================================
+   DARK THEME
+======================================== */
+
 .dark {
   color-scheme: dark;
 
@@ -160,6 +166,7 @@
   --sidebar-border: #34453b;
   --sidebar-ring: #64b995;
 
+  /* Brand colors */
   --brand-primary: #64b995;
   --brand-dark: #dcece2;
   --brand-accent: #e99a5b;
@@ -168,7 +175,10 @@
   --brand-text: #edf3ee;
 }
 
-/* Global base styles */
+/* ========================================
+   GLOBAL BASE STYLES
+======================================== */
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -213,7 +223,10 @@
   }
 }
 
-/* Reusable layout and design utilities */
+/* ========================================
+   REUSABLE DESIGN UTILITIES
+======================================== */
+
 @layer components {
   .site-container {
     width: min(100% - 2rem, 1200px);
@@ -255,7 +268,10 @@
   }
 }
 
-/* Responsive media defaults */
+/* ========================================
+   RESPONSIVE MEDIA DEFAULTS
+======================================== */
+
 @media (max-width: 640px) {
   .site-container {
     width: min(100% - 1.5rem, 1200px);

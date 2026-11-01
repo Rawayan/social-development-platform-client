@@ -4,15 +4,17 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Leaf,
-  Menu,
-  X,
-  ChevronDown,
-  UserRound,
   CalendarDays,
-  Settings,
+  ChevronDown,
+  Leaf,
   LogOut,
+  Menu,
+  Settings,
+  UserRound,
+  X,
 } from "lucide-react";
+
+import ThemeToggle from "@/components/theme-toggle";
 
 export interface NavbarUser {
   name: string;
@@ -25,9 +27,15 @@ interface NavbarProps {
   onLogout?: () => void;
 }
 
-const navigationLinks = [
-  { label: "Home", href: "/" },
-  { label: "Upcoming Events", href: "/upcoming-events" },
+const navLinks = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Upcoming Events",
+    href: "/upcoming-events",
+  },
 ];
 
 export default function Navbar({
@@ -35,92 +43,114 @@ export default function Navbar({
   onLogout,
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
+    setProfileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    closeMobileMenu();
+    onLogout?.();
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-md">
-      <div className="site-container">
-        <div className="flex h-16 items-center justify-between gap-4 md:h-[76px]">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 shadow-sm backdrop-blur-md">
+      <nav
+        className="site-container flex h-16 items-center justify-between gap-4"
+        aria-label="Main navigation"
+      >
+        {/* Brand Logo */}
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-2"
+          aria-label="Together home"
+          onClick={closeMobileMenu}
+        >
+          <span className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <Leaf size={23} />
+          </span>
 
-          {/* Brand Logo */}
-          <Link
-            href="/"
-            onClick={closeMobileMenu}
-            className="flex shrink-0 items-center gap-2.5"
-          >
-            <span className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-              <Leaf size={23} strokeWidth={2.2} />
-            </span>
+          <span className="text-xl font-bold tracking-tight text-foreground">
+            Together
+          </span>
+        </Link>
 
-            <span className="text-xl font-bold tracking-tight text-foreground">
-              Together<span className="text-primary">.</span>
-            </span>
-          </Link>
+        {/* Desktop Navigation */}
+        <div className="hidden items-center gap-7 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
 
-          {/* Desktop Navigation */}
-          <nav
-            aria-label="Main navigation"
-            className="hidden items-center gap-8 md:flex"
-          >
-            {navigationLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        {/* Desktop Actions */}
+        <div className="hidden items-center gap-3 md:flex">
+          <ThemeToggle />
+
+          {!user ? (
+            <Link
+              href="/login"
+              className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Login
+            </Link>
+          ) : (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setProfileMenuOpen((prev) => !prev)}
+                onBlur={(event) => {
+                  if (
+                    !event.currentTarget.parentElement?.contains(
+                      event.relatedTarget as Node | null
+                    )
+                  ) {
+                    setProfileMenuOpen(false);
+                  }
+                }}
+                className="flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-1.5 pr-3 transition-colors hover:bg-muted"
+                aria-expanded={profileMenuOpen}
+                aria-haspopup="true"
               >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Desktop Auth / Profile */}
-          <div className="hidden items-center gap-3 md:flex">
-            {!user ? (
-              <Link
-                href="/login"
-                className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
-              >
-                Login
-              </Link>
-            ) : (
-              <div className="group/profile relative">
-                <button
-                  type="button"
-                  title={user.name}
-                  aria-label={`Open profile menu for ${user.name}`}
-                  className="flex items-center gap-2 rounded-full border border-border bg-card py-1 pl-1 pr-3 transition-colors hover:bg-muted"
-                >
-                  {user.image ? (
-                    <img
-                      src={user.image}
-                      alt={`${user.name}'s profile`}
-                      className="size-9 rounded-full object-cover"
-                    />
-                  ) : (
-                    <span className="flex size-9 items-center justify-center rounded-full bg-secondary text-primary">
-                      <UserRound size={19} />
-                    </span>
-                  )}
-
-                  <span className="max-w-28 truncate text-sm font-semibold text-foreground">
-                    {user.name}
+                {user.image ? (
+                  <img
+                    src={user.image}
+                    alt={`${user.name}'s profile`}
+                    className="size-8 rounded-full object-cover"
+                  />
+                ) : (
+                  <span className="flex size-8 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
+                    <UserRound size={17} />
                   </span>
+                )}
 
-                  <ChevronDown size={15} className="text-muted-foreground" />
-                </button>
+                <span className="max-w-28 truncate text-sm font-medium text-foreground">
+                  {user.name}
+                </span>
 
-                {/* Profile Dropdown */}
-                <div className="invisible absolute right-0 top-full z-50 mt-2 w-60 translate-y-2 rounded-xl border border-border bg-card p-2 opacity-0 shadow-xl transition-all duration-200 group-hover/profile:visible group-hover/profile:translate-y-0 group-hover/profile:opacity-100 group-focus-within/profile:visible group-focus-within/profile:translate-y-0 group-focus-within/profile:opacity-100">
+                <ChevronDown
+                  size={16}
+                  className={`text-muted-foreground transition-transform ${
+                    profileMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Profile Dropdown */}
+              {profileMenuOpen && (
+                <div className="absolute right-0 top-full mt-3 w-60 overflow-hidden rounded-xl border border-border bg-card p-2 shadow-xl">
                   <div className="border-b border-border px-3 py-3">
-                    <p
-                      className="truncate text-sm font-semibold text-foreground"
-                      title={user.name}
-                    >
+                    <p className="truncate text-sm font-semibold text-foreground">
                       {user.name}
                     </p>
+
                     <p className="truncate text-xs text-muted-foreground">
                       {user.email}
                     </p>
@@ -129,7 +159,8 @@ export default function Navbar({
                   <div className="space-y-1 py-2">
                     <Link
                       href="/create-event"
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary hover:text-primary"
+                      onClick={() => setProfileMenuOpen(false)}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
                     >
                       <CalendarDays size={17} />
                       Create Event
@@ -137,7 +168,8 @@ export default function Navbar({
 
                     <Link
                       href="/manage-events"
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary hover:text-primary"
+                      onClick={() => setProfileMenuOpen(false)}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
                     >
                       <Settings size={17} />
                       Manage Events
@@ -145,7 +177,8 @@ export default function Navbar({
 
                     <Link
                       href="/joined-events"
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary hover:text-primary"
+                      onClick={() => setProfileMenuOpen(false)}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
                     >
                       <UserRound size={17} />
                       Joined Events
@@ -155,7 +188,7 @@ export default function Navbar({
                   <div className="border-t border-border pt-2">
                     <button
                       type="button"
-                      onClick={onLogout}
+                      onClick={handleLogout}
                       disabled={!onLogout}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-destructive transition-colors hover:bg-destructive/10 disabled:cursor-not-allowed disabled:opacity-50"
                     >
@@ -164,117 +197,130 @@ export default function Navbar({
                     </button>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
-            className="flex size-10 items-center justify-center rounded-lg border border-border text-foreground transition-colors hover:bg-muted md:hidden"
-          >
-            {mobileMenuOpen ? <X size={21} /> : <Menu size={21} />}
-          </button>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="border-t border-border py-4 md:hidden">
-            <nav
-              aria-label="Mobile navigation"
-              className="flex flex-col gap-1"
-            >
-              {navigationLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={closeMobileMenu}
-                  className="rounded-lg px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary hover:text-primary"
-                >
-                  {link.label}
-                </Link>
-              ))}
+        {/* Mobile Actions */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
 
-              <div className="my-2 border-t border-border" />
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="flex size-10 items-center justify-center rounded-lg border border-border text-foreground transition-colors hover:bg-muted"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? (
+              <X size={21} />
+            ) : (
+              <Menu size={21} />
+            )}
+          </button>
+        </div>
+      </nav>
 
-              {!user ? (
-                <Link
-                  href="/login"
-                  onClick={closeMobileMenu}
-                  className="mx-1 flex h-11 items-center justify-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground"
-                >
-                  Login
-                </Link>
-              ) : (
-                <>
-                  <div className="flex items-center gap-3 px-4 py-3">
-                    {user.image ? (
-                      <img
-                        src={user.image}
-                        alt={`${user.name}'s profile`}
-                        className="size-10 rounded-full object-cover"
-                      />
-                    ) : (
-                      <span className="flex size-10 items-center justify-center rounded-full bg-secondary text-primary">
-                        <UserRound size={19} />
-                      </span>
-                    )}
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <div className="border-t border-border bg-background md:hidden">
+          <div className="site-container space-y-2 py-4">
+            {/* Main Links */}
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={closeMobileMenu}
+                className="block rounded-lg px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-muted hover:text-primary"
+              >
+                {link.label}
+              </Link>
+            ))}
 
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold text-foreground">
-                        {user.name}
-                      </p>
-                      <p className="truncate text-xs text-muted-foreground">
-                        {user.email}
-                      </p>
-                    </div>
+            <div className="my-3 border-t border-border" />
+
+            {/* Logged Out */}
+            {!user ? (
+              <Link
+                href="/login"
+                onClick={closeMobileMenu}
+                className="flex h-11 items-center justify-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                Login
+              </Link>
+            ) : (
+              <>
+                {/* Mobile User Information */}
+                <div className="flex items-center gap-3 rounded-xl bg-card p-3">
+                  {user.image ? (
+                    <img
+                      src={user.image}
+                      alt={`${user.name}'s profile`}
+                      className="size-11 rounded-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex size-11 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
+                      <UserRound size={20} />
+                    </span>
+                  )}
+
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-foreground">
+                      {user.name}
+                    </p>
+
+                    <p className="truncate text-xs text-muted-foreground">
+                      {user.email}
+                    </p>
                   </div>
+                </div>
 
+                {/* Mobile Profile Links */}
+                <div className="space-y-1 pt-2">
                   <Link
                     href="/create-event"
                     onClick={closeMobileMenu}
-                    className="rounded-lg px-4 py-3 text-sm text-foreground hover:bg-secondary"
+                    className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm text-foreground transition-colors hover:bg-muted"
                   >
+                    <CalendarDays size={18} />
                     Create Event
                   </Link>
 
                   <Link
                     href="/manage-events"
                     onClick={closeMobileMenu}
-                    className="rounded-lg px-4 py-3 text-sm text-foreground hover:bg-secondary"
+                    className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm text-foreground transition-colors hover:bg-muted"
                   >
+                    <Settings size={18} />
                     Manage Events
                   </Link>
 
                   <Link
                     href="/joined-events"
                     onClick={closeMobileMenu}
-                    className="rounded-lg px-4 py-3 text-sm text-foreground hover:bg-secondary"
+                    className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm text-foreground transition-colors hover:bg-muted"
                   >
+                    <UserRound size={18} />
                     Joined Events
                   </Link>
+                </div>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      closeMobileMenu();
-                      onLogout?.();
-                    }}
-                    disabled={!onLogout}
-                    className="mx-1 flex h-11 items-center justify-center gap-2 rounded-lg bg-destructive/10 text-sm font-semibold text-destructive disabled:opacity-50"
-                  >
-                    <LogOut size={17} />
-                    Logout
-                  </button>
-                </>
-              )}
-            </nav>
+                {/* Mobile Logout */}
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  disabled={!onLogout}
+                  className="mt-2 flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-destructive/30 text-sm font-semibold text-destructive transition-colors hover:bg-destructive/10 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <LogOut size={17} />
+                  Logout
+                </button>
+              </>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </header>
   );
 }
