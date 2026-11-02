@@ -397,22 +397,26 @@ export default function CreateEventPage() {
 
               {/* SUBMIT */}
               <button
-                type="submit"
-                disabled={isSubmitting}
-                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isSubmitting ? (
-                  <>
-                    <span className="size-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                    Creating Event...
-                  </>
-                ) : (
-                  <>
-                    <Send size={18} />
-                    Create Event
-                  </>
-                )}
-              </button>
+  type="submit"
+  disabled={isSubmitting}
+  aria-busy={isSubmitting}
+  className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+>
+  {isSubmitting ? (
+    <>
+      <span
+        aria-hidden="true"
+        className="size-5 animate-spin rounded-full border-2 border-current border-t-transparent"
+      />
+      Creating Event...
+    </>
+  ) : (
+    <>
+      <Send size={18} />
+      Create Event
+    </>
+  )}
+</button>
             </form>
           </div>
         </div>
