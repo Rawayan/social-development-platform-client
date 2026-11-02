@@ -1,0 +1,64 @@
+
+export interface CommunityEvent {
+  _id: string;
+  title: string;
+  description: string;
+  eventType: string;
+  imageUrl: string;
+  location: string;
+  eventDate: string;
+  creatorEmail: string;
+  createdAt: string;
+}
+
+interface EventsApiResponse {
+  success: boolean;
+  message: string;
+  count: number;
+  data: CommunityEvent[];
+}
+
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
+export async function getRecentEvents(): Promise<{
+  events: CommunityEvent[];
+  error: string | null;
+}> {
+  try {
+    const response = await fetch(
+      `${API_URL}/api/events/recent`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Unable to load events. Server returned ${response.status}.`
+      );
+    }
+
+    const result =
+      (await response.json()) as EventsApiResponse;
+
+    if (!result.success || !Array.isArray(result.data)) {
+      throw new Error("Invalid events response from server.");
+    }
+
+    return {
+      events: result.data,
+      error: null,
+    };
+  } catch (error) {
+    console.error("Recent events error:", error);
+
+    return {
+      events: [],
+      error:
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while loading events.",
+    };
+  }
+}
