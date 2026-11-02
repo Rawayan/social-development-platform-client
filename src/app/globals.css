@@ -277,3 +277,85 @@
     width: min(100% - 1.5rem, 1200px);
   }
 }
+
+/* ========================================
+   RESPONSIVE POLISH — STEP 20
+======================================== */
+
+/* Prevent long content from breaking layouts */
+@layer base {
+  body {
+    min-width: 320px;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  a,
+  button {
+    overflow-wrap: break-word;
+  }
+
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .site-container {
+    width: min(100% - 1.25rem, 1200px);
+  }
+
+  .section-padding {
+    padding-block: 2.75rem;
+  }
+
+  .section-heading {
+    font-size: clamp(1.65rem, 8vw, 2rem);
+  }
+
+  .section-description {
+    font-size: 0.925rem;
+    line-height: 1.7;
+  }
+}
+
+/* Tablet */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .site-container {
+    width: min(100% - 2.5rem, 1200px);
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1440px) {
+  .site-container {
+    width: min(100% - 4rem, 1280px);
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

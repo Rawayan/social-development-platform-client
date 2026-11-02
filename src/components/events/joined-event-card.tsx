@@ -1,6 +1,11 @@
+
 import Link from "next/link";
-import Image from "next/image";
-import { CalendarDays, MapPin, Clock3 } from "lucide-react";
+import {
+  CalendarDays,
+  MapPin,
+  Clock3,
+  ArrowRight,
+} from "lucide-react";
 import type { JoinedCommunityEvent } from "@/lib/events";
 
 type JoinedEventCardProps = {
@@ -12,81 +17,131 @@ export default function JoinedEventCard({
 }: JoinedEventCardProps) {
   const eventDate = new Date(event.eventDate);
 
-  const formattedDate = eventDate.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const isValidEventDate = !Number.isNaN(eventDate.getTime());
 
-  const formattedJoinedDate = event.joinedAt
-    ? new Date(event.joinedAt).toLocaleDateString("en-US", {
+  const formattedDate = isValidEventDate
+    ? eventDate.toLocaleDateString("en-US", {
         year: "numeric",
-        month: "short",
+        month: "long",
         day: "numeric",
       })
     : "Date unavailable";
 
+  const joinedDate = event.joinedAt
+    ? new Date(event.joinedAt)
+    : null;
+
+  const formattedJoinedDate =
+    joinedDate && !Number.isNaN(joinedDate.getTime())
+      ? joinedDate.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      : "Date unavailable";
+
+  const isEventEnded =
+    isValidEventDate && eventDate.getTime() < Date.now();
+
   return (
-    <article className="surface-card group overflow-hidden rounded-2xl border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-      <div className="relative h-52 w-full overflow-hidden bg-muted">
+    <article className="surface-card group flex h-full flex-col overflow-hidden rounded-2xl border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      {/* Event Image */}
+      <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-muted">
         {event.imageUrl ? (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={event.imageUrl}
             alt={event.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-            No event image
+          <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
+            No event image available
           </div>
         )}
+
+        {/* Event Type Badge */}
+        <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1.5 text-xs font-semibold text-primary shadow-sm backdrop-blur-sm">
+          {event.eventType}
+        </span>
       </div>
 
-      <div className="space-y-4 p-5">
+      {/* Card Content */}
+      <div className="flex flex-1 flex-col space-y-4 p-5">
+        {/* Joined Date */}
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-            {event.eventType}
+          <span className="text-xs font-medium text-muted-foreground">
+            You joined
           </span>
 
-          <span className="text-xs text-muted-foreground">
-            Joined {formattedJoinedDate}
+          <span className="text-xs font-semibold text-primary">
+            {formattedJoinedDate}
           </span>
         </div>
 
-        <h2 className="line-clamp-2 text-xl font-bold text-foreground">
+        {/* Event Title */}
+        <h2 className="line-clamp-2 text-xl font-bold leading-snug text-foreground">
           {event.title}
         </h2>
 
-        <p className="line-clamp-2 text-sm leading-6 text-muted-foreground">
+        {/* Event Description */}
+        <p className="line-clamp-3 flex-1 text-sm leading-6 text-muted-foreground">
           {event.description}
         </p>
 
-        <div className="space-y-2 text-sm text-muted-foreground">
+        {/* Event Information */}
+        <div className="space-y-3 border-t border-border pt-4 text-sm text-muted-foreground">
+          {/* Event Date */}
           <div className="flex items-center gap-2">
-            <CalendarDays size={16} className="shrink-0 text-primary" />
+            <CalendarDays
+              size={17}
+              className="shrink-0 text-primary"
+              aria-hidden="true"
+            />
+
             <span>{formattedDate}</span>
           </div>
 
+          {/* Event Location */}
           <div className="flex items-center gap-2">
-            <MapPin size={16} className="shrink-0 text-primary" />
-            <span className="line-clamp-1">{event.location}</span>
+            <MapPin
+              size={17}
+              className="shrink-0 text-primary"
+              aria-hidden="true"
+            />
+
+            <span className="line-clamp-1">
+              {event.location}
+            </span>
           </div>
 
+          {/* Event Status */}
           <div className="flex items-center gap-2">
-            <Clock3 size={16} className="shrink-0 text-primary" />
+            <Clock3
+              size={17}
+              className="shrink-0 text-primary"
+              aria-hidden="true"
+            />
+
             <span>
-              {eventDate.getTime() < Date.now() ? "Event ended" : "Upcoming event"}
+              {isEventEnded ? "Event ended" : "Upcoming event"}
             </span>
           </div>
         </div>
 
+        {/* View Event Button */}
         <Link
           href={`/events/${event._id}`}
-          className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          className="mt-auto inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           View Event Details
+
+          <ArrowRight
+            size={17}
+            aria-hidden="true"
+            className="transition-transform group-hover:translate-x-1"
+          />
         </Link>
       </div>
     </article>
