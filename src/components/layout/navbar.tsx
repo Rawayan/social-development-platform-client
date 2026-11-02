@@ -131,7 +131,10 @@ export default function Navbar({
                   </span>
                 )}
 
-                <span className="max-w-28 truncate text-sm font-medium text-foreground">
+                <span
+                  title={user.name}
+                  className="max-w-28 truncate text-sm font-medium text-foreground"
+                >
                   {user.name}
                 </span>
 
@@ -143,9 +146,10 @@ export default function Navbar({
                 />
               </button>
 
-              {/* Profile Dropdown */}
+              {/* Desktop Profile Dropdown */}
               {profileMenuOpen && (
                 <div className="absolute right-0 top-full mt-3 w-60 overflow-hidden rounded-xl border border-border bg-card p-2 shadow-xl">
+                  {/* User Information */}
                   <div className="border-b border-border px-3 py-3">
                     <p className="truncate text-sm font-semibold text-foreground">
                       {user.name}
@@ -156,7 +160,17 @@ export default function Navbar({
                     </p>
                   </div>
 
+                  {/* Profile Links */}
                   <div className="space-y-1 py-2">
+                    <Link
+                      href="/profile"
+                      onClick={() => setProfileMenuOpen(false)}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
+                    >
+                      <UserRound size={17} />
+                      My Profile
+                    </Link>
+
                     <Link
                       href="/create-event"
                       onClick={() => setProfileMenuOpen(false)}
@@ -185,6 +199,7 @@ export default function Navbar({
                     </Link>
                   </div>
 
+                  {/* Logout */}
                   <div className="border-t border-border pt-2">
                     <button
                       type="button"
@@ -226,7 +241,7 @@ export default function Navbar({
       {mobileMenuOpen && (
         <div className="border-t border-border bg-background md:hidden">
           <div className="site-container space-y-2 py-4">
-            {/* Main Links */}
+            {/* Main Navigation Links */}
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -278,6 +293,15 @@ export default function Navbar({
 
                 {/* Mobile Profile Links */}
                 <div className="space-y-1 pt-2">
+                  <Link
+                    href="/profile"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm text-foreground transition-colors hover:bg-muted"
+                  >
+                    <UserRound size={18} />
+                    My Profile
+                  </Link>
+
                   <Link
                     href="/create-event"
                     onClick={closeMobileMenu}
