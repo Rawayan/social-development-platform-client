@@ -7,8 +7,11 @@ export interface CommunityEvent {
   imageUrl: string;
   location: string;
   eventDate: string;
+  creatorId?: string;
   creatorEmail: string;
+  creatorName?: string;
   createdAt: string;
+  updatedAt?: string;
 }
 
 interface EventsApiResponse {
