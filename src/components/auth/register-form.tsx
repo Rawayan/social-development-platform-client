@@ -105,12 +105,22 @@ export default function RegisterForm() {
         callbackURL,
       });
 
-      if (error) {
-        toast.error(
-          error.message || "Registration failed. Please try again."
-        );
-        return;
-      }
+     if (error) {
+  console.log("========== BETTER AUTH ERROR ==========");
+  console.log("Error object:", error);
+  console.log("Error message:", error.message);
+  console.log("Error status:", error.status);
+  console.log("Error statusText:", error.statusText);
+  console.log("Error code:", error.code);
+  console.log("Error details:", JSON.stringify(error, null, 2));
+  console.log("=======================================");
+
+  toast.error(
+    error.message || "Registration failed. Please try again."
+  );
+
+  return;
+}
 
       toast.success("Account created successfully!");
 

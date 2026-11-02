@@ -1,6 +1,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, Leaf } from "lucide-react";
+import CopyrightYear from "./copyright-year";
 
 function XLogo() {
   return (
@@ -150,7 +151,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="flex flex-col gap-3 border-t border-border py-5 text-center text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p>
-            © {new Date().getFullYear()} Together. All rights reserved.
+            © <CopyrightYear /> Together. All rights reserved.
           </p>
 
           <p>Made with care for a better community.</p>
