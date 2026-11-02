@@ -104,3 +104,55 @@ export async function getUpcomingEvents(): Promise<{
     };
   }
 }
+
+export async function getEventById(
+  id: string
+): Promise<{
+  event: CommunityEvent | null;
+  error: string | null;
+}> {
+  try {
+    const response = await fetch(
+      `${API_URL}/api/events/${encodeURIComponent(id)}`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (response.status === 404) {
+      return {
+        event: null,
+        error: "Event not found",
+      };
+    }
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch event details");
+    }
+
+    const result: {
+      success: boolean;
+      message: string;
+      data: CommunityEvent;
+    } = await response.json();
+
+    if (!result.success || !result.data) {
+      throw new Error("Invalid event response");
+    }
+
+    return {
+      event: result.data,
+      error: null,
+    };
+  } catch (error) {
+    console.error("Event Details Error:", error);
+
+    return {
+      event: null,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Something went wrong",
+    };
+  }
+}
