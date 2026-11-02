@@ -30,7 +30,7 @@ export default function EventCard({
   event,
 }: EventCardProps) {
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article className="glass group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       <div
         role="img"
         aria-label={`Image for ${event.title}`}

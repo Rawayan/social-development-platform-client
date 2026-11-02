@@ -8,7 +8,7 @@ import JoinedEventCard from "./joined-event-card";
 
 function JoinedEventSkeleton() {
   return (
-    <div className="surface-card animate-pulse overflow-hidden rounded-2xl border border-border">
+    <div className="surface-card animate-pulse overflow-hidden rounded-2xl">
       <div className="h-52 bg-muted" />
       <div className="space-y-4 p-5">
         <div className="h-5 w-24 rounded bg-muted" />
@@ -94,7 +94,7 @@ export default function JoinedEventsContent() {
         )}
 
         {!loading && !error && events.length === 0 && (
-          <div className="surface-card rounded-2xl border border-border px-6 py-16 text-center">
+          <div className="surface-card rounded-2xl px-6 py-16 text-center">
             <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
               <CalendarCheck size={30} />
             </div>

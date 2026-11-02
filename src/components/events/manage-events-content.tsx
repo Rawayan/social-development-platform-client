@@ -527,7 +527,7 @@ export default function ManageEventsContent() {
                               minLength={3}
                               maxLength={100}
                               required
-                              className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+                              className="w-full rounded-xl border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
                             />
                           </div>
 
@@ -545,7 +545,7 @@ export default function ManageEventsContent() {
                               onChange={(e) =>
                                 handleChange("eventType", e.target.value)
                               }
-                              className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+                              className="w-full rounded-xl border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
                             >
                               {eventTypes.map((type) => (
                                 <option key={type} value={type}>
@@ -573,7 +573,7 @@ export default function ManageEventsContent() {
                               maxLength={2000}
                               rows={4}
                               required
-                              className="w-full resize-y rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+                              className="w-full resize-y rounded-xl border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
                             />
                           </div>
 
@@ -593,7 +593,7 @@ export default function ManageEventsContent() {
                                 handleChange("imageUrl", e.target.value)
                               }
                               required
-                              className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+                              className="w-full rounded-xl border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
                             />
                           </div>
 
@@ -614,7 +614,7 @@ export default function ManageEventsContent() {
                               minLength={2}
                               maxLength={150}
                               required
-                              className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+                              className="w-full rounded-xl border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
                             />
                           </div>
 
@@ -635,7 +635,7 @@ export default function ManageEventsContent() {
                                 handleChange("eventDate", e.target.value)
                               }
                               required
-                              className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
+                              className="w-full rounded-xl border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 outline-none focus:ring-2 focus:ring-ring"
                             />
                           </div>
 

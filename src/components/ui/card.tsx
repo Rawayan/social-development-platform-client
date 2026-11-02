@@ -14,7 +14,7 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn(
-        "group/card flex flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
+        "glass group/card flex flex-col overflow-hidden rounded-xl text-card-foreground transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
         size === "default" ? "gap-5 p-5" : "gap-3 p-4",
         className
       )}

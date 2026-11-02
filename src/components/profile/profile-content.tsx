@@ -193,7 +193,7 @@ export default function ProfileContent() {
                   minLength={2}
                   maxLength={80}
                   required
-                  className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none transition focus:ring-2 focus:ring-ring"
+                  className="w-full rounded-xl border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 outline-none transition focus:ring-2 focus:ring-ring"
                 />
               </div>
 
@@ -233,7 +233,7 @@ export default function ProfileContent() {
                   value={imageUrl}
                   onChange={(event) => setImageUrl(event.target.value)}
                   placeholder="https://example.com/profile.jpg"
-                  className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none transition focus:ring-2 focus:ring-ring"
+                  className="w-full rounded-xl border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 outline-none transition focus:ring-2 focus:ring-ring"
                 />
 
                 <p className="mt-2 text-xs text-muted-foreground">

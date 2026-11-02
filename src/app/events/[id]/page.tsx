@@ -54,7 +54,7 @@ async function EventDetailsContent({
         Back to Events
       </Link>
 
-      <article className="overflow-hidden rounded-2xl border border-border bg-card">
+      <article className="glass overflow-hidden rounded-2xl">
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted md:aspect-[21/9]">
           {event.imageUrl ? (
             <img

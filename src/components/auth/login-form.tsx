@@ -130,7 +130,7 @@ export default function LoginForm() {
               onChange={(event) => setEmail(event.target.value)}
               placeholder="you@example.com"
               disabled={isSubmitting}
-              className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
             />
           </div>
 
@@ -154,7 +154,7 @@ export default function LoginForm() {
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="Enter your password"
                 disabled={isSubmitting}
-                className="w-full rounded-lg border border-input bg-background px-4 py-3 pr-12 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 pr-12 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
               />
 
               <button

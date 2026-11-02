@@ -44,7 +44,7 @@ export default function JoinedEventCard({
     isValidEventDate && eventDate.getTime() < Date.now();
 
   return (
-    <article className="surface-card group flex h-full flex-col overflow-hidden rounded-2xl border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <article className="surface-card group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       {/* Event Image */}
       <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-muted">
         {event.imageUrl ? (

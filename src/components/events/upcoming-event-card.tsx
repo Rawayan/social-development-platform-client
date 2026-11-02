@@ -26,7 +26,7 @@ export default function UpcomingEventCard({
       }).format(eventDate);
 
   return (
-    <article className="surface-card group flex h-full flex-col overflow-hidden rounded-2xl border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article className="surface-card group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       {/* Event Image */}
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">
         {event.imageUrl ? (

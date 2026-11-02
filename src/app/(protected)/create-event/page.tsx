@@ -185,7 +185,7 @@ export default function CreateEventPage() {
   };
 
   return (
-    <section className="section-padding bg-background">
+    <section className="section-padding">
       <div className="site-container">
         <div className="mx-auto max-w-3xl">
           {/* PAGE HEADER */}
@@ -230,7 +230,7 @@ export default function CreateEventPage() {
                     handleChange("title", event.target.value)
                   }
                   placeholder="Example: Community Cleanup Day"
-                  className="w-full rounded-lg border border-input bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+                  className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
                 />
               </div>
 
@@ -257,7 +257,7 @@ export default function CreateEventPage() {
                     )
                   }
                   placeholder="Describe the event, its purpose, and how people can participate..."
-                  className="w-full resize-y rounded-lg border border-input bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+                  className="w-full resize-y rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
                 />
 
                 <p className="mt-1 text-right text-xs text-muted-foreground">
@@ -284,7 +284,7 @@ export default function CreateEventPage() {
                       event.target.value
                     )
                   }
-                  className="w-full rounded-lg border border-input bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+                  className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
                 >
                   {eventTypes.map((type) => (
                     <option key={type} value={type}>
@@ -316,7 +316,7 @@ export default function CreateEventPage() {
                     )
                   }
                   placeholder="https://example.com/event-image.jpg"
-                  className="w-full rounded-lg border border-input bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+                  className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
                 />
 
                 {formData.imageUrl && (
@@ -358,7 +358,7 @@ export default function CreateEventPage() {
                     )
                   }
                   placeholder="Example: Dhanmondi, Dhaka"
-                  className="w-full rounded-lg border border-input bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+                  className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
                 />
               </div>
 
@@ -387,7 +387,7 @@ export default function CreateEventPage() {
                       event.target.value
                     )
                   }
-                  className="w-full rounded-lg border border-input bg-background px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+                  className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
                 />
 
                 <p className="mt-2 text-xs text-muted-foreground">

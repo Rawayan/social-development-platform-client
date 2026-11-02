@@ -202,7 +202,7 @@ export default function RegisterForm() {
               onChange={(event) => setName(event.target.value)}
               placeholder="Your full name"
               disabled={isSubmitting}
-              className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
             />
           </div>
 
@@ -225,7 +225,7 @@ export default function RegisterForm() {
               onChange={(event) => setEmail(event.target.value)}
               placeholder="you@example.com"
               disabled={isSubmitting}
-              className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
             />
           </div>
 
@@ -250,7 +250,7 @@ export default function RegisterForm() {
               onChange={(event) => setPhotoUrl(event.target.value)}
               placeholder="https://example.com/photo.jpg"
               disabled={isSubmitting}
-              className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
             />
           </div>
 
@@ -275,7 +275,7 @@ export default function RegisterForm() {
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="Create a password"
                 disabled={isSubmitting}
-                className="w-full rounded-lg border border-input bg-background px-4 py-3 pr-12 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 pr-12 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
               />
 
               <button
@@ -325,7 +325,7 @@ export default function RegisterForm() {
                 }
                 placeholder="Enter your password again"
                 disabled={isSubmitting}
-                className="w-full rounded-lg border border-input bg-background px-4 py-3 pr-12 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 pr-12 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
               />
 
               <button

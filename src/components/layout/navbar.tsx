@@ -56,7 +56,7 @@ export default function Navbar({
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 shadow-sm backdrop-blur-md">
+    <header className="glass-strong sticky top-0 z-50 w-full border-x-0 border-t-0">
       <nav
         className="site-container flex h-16 items-center justify-between gap-4"
         aria-label="Main navigation"
@@ -115,7 +115,7 @@ export default function Navbar({
                     setProfileMenuOpen(false);
                   }
                 }}
-                className="flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-1.5 pr-3 transition-colors hover:bg-muted"
+                className="glass flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-3 transition-colors hover:bg-muted/60"
                 aria-expanded={profileMenuOpen}
                 aria-haspopup="true"
               >
@@ -148,7 +148,7 @@ export default function Navbar({
 
               {/* Desktop Profile Dropdown */}
               {profileMenuOpen && (
-                <div className="absolute right-0 top-full mt-3 w-60 overflow-hidden rounded-xl border border-border bg-card p-2 shadow-xl">
+                <div className="glass-strong absolute right-0 top-full mt-3 w-60 overflow-hidden rounded-xl p-2">
                   {/* User Information */}
                   <div className="border-b border-border px-3 py-3">
                     <p className="truncate text-sm font-semibold text-foreground">
@@ -224,7 +224,7 @@ export default function Navbar({
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="flex size-10 items-center justify-center rounded-lg border border-border text-foreground transition-colors hover:bg-muted"
+            className="glass flex size-10 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted/60"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >
@@ -239,7 +239,7 @@ export default function Navbar({
 
       {/* Mobile Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="border-t border-border bg-background md:hidden">
+        <div className="glass-strong border-x-0 border-b-0 md:hidden">
           <div className="site-container space-y-2 py-4">
             {/* Main Navigation Links */}
             {navLinks.map((link) => (
@@ -267,7 +267,7 @@ export default function Navbar({
             ) : (
               <>
                 {/* Mobile User Information */}
-                <div className="flex items-center gap-3 rounded-xl bg-card p-3">
+                <div className="glass flex items-center gap-3 rounded-xl p-3">
                   {user.image ? (
                     <img
                       src={user.image}

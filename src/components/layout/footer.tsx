@@ -74,7 +74,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-card">
+    <footer className="glass border-x-0 border-b-0">
       <div className="site-container">
         <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr] lg:py-16">
           {/* Brand section */}
@@ -139,7 +139,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Visit ${social.label}`}
-                  className="flex size-10 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                  className="glass flex size-10 items-center justify-center rounded-full text-muted-foreground transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   {social.icon}
                 </a>
