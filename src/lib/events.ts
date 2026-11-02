@@ -156,3 +156,27 @@ export async function getEventById(
     };
   }
 }
+
+import { apiFetch } from "@/lib/api-client";
+
+export type JoinedCommunityEvent = CommunityEvent & {
+  joinedAt: string | null;
+};
+
+type JoinedEventsResponse = {
+  success: boolean;
+  count: number;
+  data: JoinedCommunityEvent[];
+};
+
+export async function getMyJoinedEvents(): Promise<JoinedCommunityEvent[]> {
+  const response = await apiFetch<JoinedEventsResponse>(
+    "/api/joins/my-events"
+  );
+
+  if (!response.success) {
+    throw new Error("Failed to load joined events.");
+  }
+
+  return response.data;
+}

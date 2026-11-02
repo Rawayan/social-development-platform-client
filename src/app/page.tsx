@@ -1,22 +1,19 @@
-
 import Link from "next/link";
+import { Suspense } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
-  CalendarDays,
   CheckCircle2,
   Globe2,
   HandHeart,
   HeartHandshake,
   Leaf,
   Mail,
-  MapPin,
   Sprout,
   Users,
 } from "lucide-react";
 
-import EventCard from "@/components/home/event-card";
-import { getRecentEvents } from "@/lib/events";
+import RecentEventsSection from "@/components/home/recent-events-section";
 
 const features = [
   {
@@ -63,9 +60,39 @@ const gallery = [
   },
 ];
 
-export default async function Home() {
-  const { events, error } = await getRecentEvents();
+function RecentEventsFallback() {
+  return (
+    <section className="section-padding bg-secondary/40">
+      <div className="site-container">
+        <div className="mb-10">
+          <div className="h-4 w-28 animate-pulse rounded bg-muted" />
+          <div className="mt-4 h-9 w-80 max-w-full animate-pulse rounded bg-muted" />
+          <div className="mt-4 h-4 w-full max-w-lg animate-pulse rounded bg-muted" />
+        </div>
 
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div
+              key={index}
+              className="surface-card animate-pulse overflow-hidden rounded-2xl"
+            >
+              <div className="h-52 bg-muted" />
+
+              <div className="space-y-4 p-5">
+                <div className="h-5 w-24 rounded bg-muted" />
+                <div className="h-6 w-3/4 rounded bg-muted" />
+                <div className="h-4 w-full rounded bg-muted" />
+                <div className="h-10 w-full rounded bg-muted" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
   return (
     <>
       {/* HERO SECTION */}
@@ -196,101 +223,20 @@ export default async function Home() {
       </section>
 
       {/* RECENT UPCOMING EVENTS */}
-      <section className="section-padding bg-secondary/40">
-        <div className="site-container">
-          <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-            <div>
-              <span className="text-sm font-bold uppercase tracking-[0.18em] text-primary">
-                Get Involved
-              </span>
-
-              <h2 className="section-heading mt-3">
-                Upcoming Community Events
-              </h2>
-
-              <p className="section-description mt-4">
-                Discover opportunities to connect, volunteer,
-                and make a difference in your community.
-              </p>
-            </div>
-
-            <Link
-              href="/upcoming-events"
-              className="inline-flex shrink-0 items-center gap-2 font-semibold text-primary transition-all hover:gap-3"
-            >
-              View All Events
-              <ArrowRight size={18} />
-            </Link>
-          </div>
-
-          {error ? (
-            <div className="surface-card mt-10 p-8 text-center">
-              <CalendarDays
-                size={36}
-                className="mx-auto text-muted-foreground"
-              />
-
-              <h3 className="mt-4 text-xl font-bold">
-                Events are temporarily unavailable
-              </h3>
-
-              <p className="mt-2 text-sm text-muted-foreground">
-                Please make sure the Together API server is
-                running and try again later.
-              </p>
-
-              <Link
-                href="/upcoming-events"
-                className="mt-5 inline-flex items-center gap-2 font-semibold text-primary"
-              >
-                Explore Events
-                <ArrowRight size={17} />
-              </Link>
-            </div>
-          ) : events.length > 0 ? (
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {events.map((event) => (
-                <EventCard
-                  key={event._id}
-                  event={event}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="surface-card mt-10 px-6 py-16 text-center">
-              <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-secondary text-primary">
-                <CalendarDays size={30} />
-              </div>
-
-              <h3 className="mt-5 text-xl font-bold">
-                No Upcoming Events Yet
-              </h3>
-
-              <p className="mx-auto mt-2 max-w-md text-sm leading-7 text-muted-foreground">
-                New community events will appear here.
-                Check back soon and be ready to make a difference!
-              </p>
-
-              <Link
-                href="/register"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:bg-primary/90"
-              >
-                Join Our Community
-                <ArrowRight size={17} />
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
+      <Suspense fallback={<RecentEventsFallback />}>
+        <RecentEventsSection />
+      </Suspense>
 
       {/* COMMUNITY IMPACT STRIP */}
       <section className="brand-gradient py-16">
         <div className="site-container grid gap-10 text-center text-white sm:grid-cols-3">
           <div>
             <Users size={30} className="mx-auto text-[#f3ad70]" />
+
             <h3 className="mt-4 text-2xl font-bold">
               One Community
             </h3>
+
             <p className="mt-2 text-sm text-white/70">
               Connected by a common purpose
             </p>
@@ -301,9 +247,11 @@ export default async function Home() {
               size={30}
               className="mx-auto text-[#f3ad70]"
             />
+
             <h3 className="mt-4 text-2xl font-bold">
               Shared Purpose
             </h3>
+
             <p className="mt-2 text-sm text-white/70">
               Supporting each other through action
             </p>
@@ -311,9 +259,11 @@ export default async function Home() {
 
           <div>
             <Globe2 size={30} className="mx-auto text-[#f3ad70]" />
+
             <h3 className="mt-4 text-2xl font-bold">
               Lasting Impact
             </h3>
+
             <p className="mt-2 text-sm text-white/70">
               Building a better tomorrow together
             </p>
@@ -339,7 +289,7 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="mt-12 grid auto-rows-[220px] gap-5 md:grid-cols-3 md:auto-rows-[250px]">
+          <div className="mt-12 grid auto-rows-[220px] gap-5 md:auto-rows-[250px] md:grid-cols-3">
             {gallery.map((item) => (
               <div
                 key={item.title}
