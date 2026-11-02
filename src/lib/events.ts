@@ -62,3 +62,45 @@ export async function getRecentEvents(): Promise<{
     };
   }
 }
+
+
+export async function getUpcomingEvents(): Promise<{
+  events: CommunityEvent[];
+  error: string | null;
+}> {
+  try {
+    const response = await fetch(`${API_URL}/api/events`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch upcoming events");
+    }
+
+    const result: {
+      success: boolean;
+      message: string;
+      count: number;
+      data: CommunityEvent[];
+    } = await response.json();
+
+    if (!result.success || !Array.isArray(result.data)) {
+      throw new Error("Invalid events response");
+    }
+
+    return {
+      events: result.data,
+      error: null,
+    };
+  } catch (error) {
+    console.error("Upcoming Events Error:", error);
+
+    return {
+      events: [],
+      error:
+        error instanceof Error
+          ? error.message
+          : "Something went wrong",
+    };
+  }
+}
