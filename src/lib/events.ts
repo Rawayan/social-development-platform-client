@@ -180,3 +180,17 @@ export async function getMyJoinedEvents(): Promise<JoinedCommunityEvent[]> {
 
   return response.data;
 }
+
+export async function getMyCreatedEvents(): Promise<CommunityEvent[]> {
+  const response = await apiFetch<{
+    success: boolean;
+    count: number;
+    data: CommunityEvent[];
+  }>("/api/events/mine");
+
+  if (!response.success) {
+    throw new Error("Failed to load your created events.");
+  }
+
+  return response.data;
+}
