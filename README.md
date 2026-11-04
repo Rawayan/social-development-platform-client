@@ -2,7 +2,7 @@
 
 **Together** is a community development platform where people connect, organize social events, and take action to create positive change in their communities.
 
-**Live Site:** https://together.example.com _(replace with the deployed URL once the site is live)_
+**Live Site:** https://together-client-theta.vercel.app
 
 ## Features
 
