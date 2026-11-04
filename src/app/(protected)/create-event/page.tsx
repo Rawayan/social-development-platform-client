@@ -284,10 +284,14 @@ export default function CreateEventPage() {
                       event.target.value
                     )
                   }
-                  className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-white/5 px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+                  className="w-full rounded-lg border border-input bg-white/50 backdrop-blur-sm dark:bg-[var(--card)] px-4 py-3 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
                 >
                   {eventTypes.map((type) => (
-                    <option key={type} value={type}>
+                    <option
+                      key={type}
+                      value={type}
+                      className="bg-card text-foreground"
+                    >
                       {type}
                     </option>
                   ))}
